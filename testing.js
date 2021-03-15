@@ -20,6 +20,26 @@ function expect(a) {
       } else {
         console.log("Fail")
       }
+    }, 
+   
+    toBe: function(c) {
+      if (a === c) {
+        console.log('Pass')
+      } else {
+        console.log('Fail')
+      }
     }
   }
 }
+
+
+it('knows a = c', function() {
+  var c = 'hannah'
+  var a = 'hannah'
+  expect(c === a).toBe(true)
+})
+
+
+
+
+
