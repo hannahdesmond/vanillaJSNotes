@@ -8,7 +8,7 @@ it('2 + 2 = 5', function() {
 })
 
 function it(label, callback) {
-  console.log(`${label}`)
+  console.log(`Testing ${label}`)
   callback()
 }
 
