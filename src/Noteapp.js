@@ -8,6 +8,7 @@ class Note {
 var submit = document.getElementsByName('submit')[0]
 
 submit.addEventListener("click", function() {
+  Event.preventDefault();
   var title = document.getElementsByName("title")[0]
   var content = document.getElementsByName("content")[0]
   var note = new Note(title.value, content.value) 
