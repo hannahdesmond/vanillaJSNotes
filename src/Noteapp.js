@@ -1,6 +1,7 @@
 class Note {
-  constructor(name) {
-    this.name = name
+  constructor(title, body) {
+    this.title = title
+    this.body = body
   }
 }
 
