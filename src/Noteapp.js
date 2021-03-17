@@ -6,7 +6,7 @@ class Note {
   }
 }
 
-var note_id = 1
+var noteId = 1
 var notesContainer = document.querySelector('#notes-container')
 
 var submit = document.getElementById('bttn')
@@ -15,7 +15,8 @@ submit.addEventListener("click", function(event) {
   event.preventDefault();
   var title = document.getElementsByName("title")[0]
   var content = document.getElementsByName("content")[0]
-  var note = new Note(title.value, content.value)
+  var note = new Note(title.value, content.value, noteId)
+  noteId++
   let notes = []
   notes.push(note)
   createNoteHTML(note)
