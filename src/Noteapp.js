@@ -20,7 +20,6 @@ submit.addEventListener("click", function(event) {
   notes.push(note)
   createNoteHTML(note)
   localStorage.setItem("notes",JSON.stringify(notes));
-  displayNotes();
 })
 
 function createNoteHTML(note) {
