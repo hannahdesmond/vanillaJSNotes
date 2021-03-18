@@ -17,7 +17,7 @@ submit.addEventListener("click", function(event) {
   var content = document.getElementsByName("content")[0]
   var note = new Note(title.value, content.value, noteId)
   noteId++
-  let notes = []
+  let notes = getNoteFromStorage()
   notes.push(note)
   createNoteHTML(note)
   localStorage.setItem("notes",JSON.stringify(notes));
