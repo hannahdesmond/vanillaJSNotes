@@ -57,5 +57,21 @@ function showNote(noteId) {
   var note = notes.filter((item) => {
     return item.id === noteId
   }); 
-  document.getElementById('notes-display').innerHTML = `${note[0].body}`
+  document.getElementById('notes-display').innerHTML = `${emojify(note)}`
 }
+
+
+function emojify(note) {
+  fetch('https://makers-emojify.herokuapp.com/', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({text: `${note[0].body}`
+      })
+    })
+    .then((response) => {
+      return response.json()
+    }).then(jsonresponse => { document.getElementById('notes-display').innerHTML = `${jsonresponse.emojified_text}`})
+  }
