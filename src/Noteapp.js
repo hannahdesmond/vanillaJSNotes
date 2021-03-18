@@ -23,6 +23,8 @@ submit.addEventListener("click", function(event) {
   localStorage.setItem("notes",JSON.stringify(notes));
 })
 
+showFullNote()
+
 function createNoteHTML(note) {
   var div = document.createElement('div') // create a new element
   div.classList.add('notes-class') // assign that element a class -> the argument
@@ -32,4 +34,28 @@ function createNoteHTML(note) {
   `
   notesContainer.appendChild(div)
 
+}
+
+function getNoteFromStorage() {
+  return localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [] 
+}
+
+function showFullNote() {
+  window.addEventListener("hashchange", showFullNoteFromLink);
+}
+
+function showFullNoteFromLink() {
+  showNote(getNoteId(window.location))
+}
+
+function getNoteId(location) {
+  return parseInt(location.hash.split("#")[1]);
+}
+
+function showNote(noteId) {
+  var notes = getNoteFromStorage();
+  var note = notes.filter((item) => {
+    return item.id === noteId
+  }); 
+  document.getElementById('notes-display').innerHTML = `${note[0].body}`
 }
