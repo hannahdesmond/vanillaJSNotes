@@ -1,6 +1,5 @@
 class Note {
-  constructor(title, body, id) {
-    this.title = title
+  constructor(body, id) {
     this.body = body
     this.id = id
   }
@@ -13,9 +12,8 @@ var submit = document.getElementById('bttn')
 
 submit.addEventListener("click", function(event) {
   event.preventDefault();
-  var title = document.getElementsByName("title")[0]
   var content = document.getElementsByName("content")[0]
-  var note = new Note(title.value, content.value, noteId)
+  var note = new Note(content.value, noteId)
   noteId++
   let notes = getNoteFromStorage()
   notes.push(note)
@@ -23,7 +21,29 @@ submit.addEventListener("click", function(event) {
   localStorage.setItem("notes",JSON.stringify(notes));
 })
 
+var clear = document.getElementById('clear')
+
+clear.addEventListener("click", function() {
+  event.preventDefault()
+  clearNotes()
+  window.location.reload(true)
+})
+
+displayNotes()
 showFullNote()
+
+function displayNotes() {
+  let notes = getNoteFromStorage()
+  if(notes.length > 0) {
+    noteId = notes[notes.length - 1].id
+    noteId++
+  } else {
+    noteId = 1
+  }
+  notes.forEach(function(item){
+    createNoteHTML(item)
+  })
+}
 
 function createNoteHTML(note) {
   var div = document.createElement('div') // create a new element
@@ -37,7 +57,7 @@ function createNoteHTML(note) {
 }
 
 function getNoteFromStorage() {
-  return localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [] 
+  return localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : []
 }
 
 function showFullNote() {
@@ -52,14 +72,18 @@ function getNoteId(location) {
   return parseInt(location.hash.split("#")[1]);
 }
 
+function clearNotes() {
+  notes = []
+  localStorage.setItem("notes",JSON.stringify(notes));
+}
+
 function showNote(noteId) {
   var notes = getNoteFromStorage();
   var note = notes.filter((item) => {
     return item.id === noteId
-  }); 
+  });
   document.getElementById('notes-display').innerHTML = `${emojify(note)}`
 }
-
 
 function emojify(note) {
   fetch('https://makers-emojify.herokuapp.com/', {
